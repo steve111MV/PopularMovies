@@ -8,11 +8,8 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Contains various methods needed by the Application,
@@ -29,15 +26,6 @@ public class Tools {
 
         NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-
-        HttpURLConnection urlCon = (HttpURLConnection) new URL("http://www.google.com").openConnection();
-        urlCon.setRequestProperty("User-Agent", "Android Application:1");
-        urlCon.setRequestProperty("Connection", "close");
-        urlCon.setConnectTimeout(CONNECTION_TIMEOUT);
-        urlCon.connect();
-        if (urlCon.getResponseCode() == ItemTouchHelper.Callback.DEFAULT_DRAG_ANIMATION_DURATION || urlCon.getResponseCode() > 400) {
             return true;
         }
 
@@ -61,6 +49,8 @@ public class Tools {
      */
     public static boolean isTabletScreen(Context c) {
         return PHONE_NORMAL_SCREEN_DENSITY <= (c.getResources().getConfiguration().screenLayout & 0xF);
+
+
     }
 
 }
