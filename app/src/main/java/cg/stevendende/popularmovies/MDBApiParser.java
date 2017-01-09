@@ -73,8 +73,13 @@ public class MDBApiParser {
             mMovieList.add(mMovie);
         }
 
-        mMovieList.setPageNumber(mJsonObject.getInt(TAG_PAGE));
-        mMovieList.setTotalPages(mJsonObject.getInt(TAG_TOTAL_PAGE));
+        //This part of code must not impact the rendering
+        try {
+            mMovieList.setPageNumber(mJsonObject.getInt(TAG_PAGE));
+            mMovieList.setTotalPages(mJsonObject.getInt(TAG_TOTAL_PAGE));
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
 
         Log.i("popularmovies json", "ArrayList size is: " + mMovieList.size());
         return mMovieList;
