@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -69,7 +69,7 @@ public class MdbMovieListAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return (mMoviesList == null) ? 0 : 3;
+        return (mMoviesList == null) ? 0 : mMoviesList.size();
     }
 
     /**
@@ -105,32 +105,36 @@ public class MdbMovieListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LinearLayout rootItemview = null;
+        RelativeLayout rootItemview = null;
 
         if (convertView != null) {
-            rootItemview = (LinearLayout) convertView;
+            rootItemview = (RelativeLayout) convertView;
         } else {
             int viewType = getItemViewType(position);
 
             if (viewType == ITEM_TYPE_LEFT) {
-                rootItemview = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
+                rootItemview = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
             } else {
-                rootItemview = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
+                rootItemview = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
             }
         }
 
-        ImageView mPposterImg = (ImageView) rootItemview.findViewById(R.id.image);
+        ImageView mImageView = (ImageView) rootItemview.findViewById(R.id.image);
         TextView mTitleTv = (TextView) rootItemview.findViewById(R.id.title);
 
+        mTitleTv.setText(mMoviesList.get(position).getTitre());
+
         Glide.with(mContext)
-                .load(MainActivityFragment.API_IMAGE_BASE_URL
-                        + MainActivityFragment.API_IMAGE_SIZE_NORMAL
+                .load(ServerAsyncTask.API_IMAGE_BASE_URL
+                        + ServerAsyncTask.API_IMAGE_SIZE_NORMAL
                         + mMoviesList.get(position).getImageUrl())
+                .placeholder(R.drawable.alt_image)
+                .animate(R.anim.anim_zoom)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(mPposterImg)
-                .onLoadFailed(null, null);
+                .into(mImageView);
 
         return rootItemview;
     }
+
 
 }
