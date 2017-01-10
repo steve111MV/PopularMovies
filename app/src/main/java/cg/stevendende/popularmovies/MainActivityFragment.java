@@ -18,7 +18,6 @@ import cg.stevendende.popularmovies.model.MdbMovieList;
  */
 public class MainActivityFragment extends Fragment {
 
-    public static final String THE_MOVIE_DB_API_KEY = "e50c7d9cacd927e3a828da99a8cb9ecf";
     public static final String API_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
     public static final String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 
