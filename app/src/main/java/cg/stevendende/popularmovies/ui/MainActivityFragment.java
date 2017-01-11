@@ -2,12 +2,18 @@
  * Copyright (C) 2017 Steve NDENDE, www.github.com/steve111MV
  */
 
-package cg.stevendende.popularmovies;
+package cg.stevendende.popularmovies.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -15,6 +21,10 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import cg.stevendende.popularmovies.MdbMovieListAdapter;
+import cg.stevendende.popularmovies.R;
+import cg.stevendende.popularmovies.ServerAsyncTask;
+import cg.stevendende.popularmovies.Tools;
 import cg.stevendende.popularmovies.model.MdbMovieList;
 
 /**
@@ -26,6 +36,13 @@ public class MainActivityFragment extends Fragment {
     private MdbMovieListAdapter mListAdapter;
 
     public MainActivityFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -87,12 +104,15 @@ public class MainActivityFragment extends Fragment {
      * Requests the movie list(in JSON format) to themoviedb.org API and populates the ListView (GridView)
      */
     private void refreshData() {
+
+        String mSortBy = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
+
         new ServerAsyncTask() {
             @Override
             protected void onPostExecute(MdbMovieList mdbMoviesList) {
 
                 if (mdbMoviesList != null) {
-
                     mListAdapter.setMoviesList(mdbMoviesList);
                     mListAdapter.notifyDataSetChanged();
 
@@ -100,6 +120,24 @@ public class MainActivityFragment extends Fragment {
                     Toast.makeText(getActivity(), "Connetion error, try again !", Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute();
+        }.execute(mSortBy);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == R.id.action_settings){
+
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
+        }
+
+        return true;
     }
 }

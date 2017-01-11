@@ -22,9 +22,9 @@ public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
     /**
      * TODO: replace the following value with your key from themoviedb.org
      */
-    public static final String THE_MOVIE_DB_API_KEY = "YOUR_API_KEY_HERE";
+    public static final String THE_MOVIE_DB_API_KEY = "e50c7d9cacd927e3a828da99a8cb9ecf";
 
-    public static final String API_BASE_URL = "http://api.themoviedb.org/3/movie/popular";
+    public static final String API_BASE_URL = "http://api.themoviedb.org/3/movie/";
     public static final String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
     public static String API_IMAGE_SIZE_NORMAL = "w185";
     public static String API_IMAGE_SIZE_BIG = "w300";
@@ -35,7 +35,9 @@ public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
     @Override
     protected MdbMovieList doInBackground(String... param) {
 
-        Uri builder = Uri.parse(API_BASE_URL)
+        String paramSort = param[0];
+
+        Uri builder = Uri.parse(API_BASE_URL + paramSort)
                 .buildUpon()
                 .appendQueryParameter("api_key", THE_MOVIE_DB_API_KEY)
                 .build();

@@ -2,11 +2,13 @@
  * Copyright (C) 2017 Steve NDENDE, www.github.com/steve111MV
  */
 
-package cg.stevendende.popularmovies;
+package cg.stevendende.popularmovies.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import cg.stevendende.popularmovies.R;
 
 /**
  * This Activity is the main entrance of The Application.
