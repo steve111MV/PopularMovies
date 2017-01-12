@@ -22,7 +22,7 @@ public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
     /**
      * TODO: replace the following value with your key from themoviedb.org
      */
-    public static final String THE_MOVIE_DB_API_KEY = "e50c7d9cacd927e3a828da99a8cb9ecf";
+    public static final String THE_MOVIE_DB_API_KEY = "YOUR_API_KEY_HERE";
 
     public static final String API_BASE_URL = "http://api.themoviedb.org/3/movie/";
     public static final String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
@@ -81,6 +81,7 @@ public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
         } catch (IOException e1) {
             e1.printStackTrace();
             Log.i("pm json ___ ", "IOException");
+
         } finally {
             if (sUrlCon != null) sUrlCon.disconnect();
 
@@ -93,7 +94,7 @@ public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
             }
         }
 
-        //Parsing the String to a JSON
+        //Parses a JSON String
         MDBApiParser parser = new MDBApiParser();
 
         try {

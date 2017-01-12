@@ -39,6 +39,9 @@ public class MdbMovieListAdapter extends BaseAdapter {
         this.mMoviesList = list;
     }
 
+    public void setContext(Context context) {
+        this.mContext = context;
+    }
     /**
      * Get the row id associated with the specified position in the list.
      *
