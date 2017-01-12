@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <ListPreference
         android:title="@string/pref_sort"
         android:key="@string/pref_sort_key"
@@ -8,5 +9,6 @@
         android:entryValues="@array/pref_sort_values"
         android:singleLine="true"
         android:defaultValue="@string/pref_sort_popular"
+        android:textColor="@color/colorTextPrimary"
         />
 </PreferenceScreen>
