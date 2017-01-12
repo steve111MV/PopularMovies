@@ -22,7 +22,7 @@ import java.net.URL;
 import cg.stevendende.popularmovies.model.MdbMovieList;
 
 /**
- * Requests the movies JSON list to themoviedb.ord API
+ * Requests the movies JSON list to themoviedb.org API
  */
 public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
 

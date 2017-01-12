@@ -102,17 +102,7 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
     public void onStart() {
         super.onStart();
 
-        try {
-            if (Tools.isInternetAvailaible(getActivity())) {
-                refreshData();
-            } else {
-                Toast.makeText(getActivity(), "No internet access, check your internet settings", Toast.LENGTH_SHORT).show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(getActivity(), "No internet access, check your internet settings", Toast.LENGTH_SHORT).show();
-        }
-
+        refreshData();
         Log.i("fragment life cycle", "onStart()");
     }
 
@@ -121,22 +111,31 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
      */
     private void refreshData() {
 
-        String mSortBy = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
+        try {
+            if (Tools.isInternetAvailaible(getActivity())) {
+                String mSortBy = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                        .getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
 
-        new ServerAsyncTask() {
-            @Override
-            protected void onPostExecute(MdbMovieList mdbMoviesList) {
+                new ServerAsyncTask() {
+                    @Override
+                    protected void onPostExecute(MdbMovieList mdbMoviesList) {
 
-                if (mdbMoviesList != null) {
-                    mListAdapter.setMoviesList(mdbMoviesList);
-                    mListAdapter.notifyDataSetChanged();
+                        if (mdbMoviesList != null) {
+                            mListAdapter.setMoviesList(mdbMoviesList);
+                            mListAdapter.notifyDataSetChanged();
 
-                } else {
-                    Toast.makeText(getActivity(), "Connetion error, try again !", Toast.LENGTH_LONG).show();
-                }
+                        } else {
+                            Toast.makeText(getActivity(), "Connetion error, try again !", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }.execute(mSortBy);
+            } else {
+                Toast.makeText(getActivity(), "No internet access, check your internet settings", Toast.LENGTH_SHORT).show();
             }
-        }.execute(mSortBy);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "No internet access, check your internet settings", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -150,8 +149,9 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         int id = item.getItemId();
 
         if(id == R.id.action_settings){
-
             startActivity(new Intent(getActivity(), SettingsActivity.class));
+        } else if (id == R.id.action_refresh) {
+            refreshData();
         }
 
         return true;
