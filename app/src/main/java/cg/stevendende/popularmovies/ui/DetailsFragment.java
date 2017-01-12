@@ -1,10 +1,13 @@
+/*
+ * Copyright (C) 2017 Steve NDENDE, www.github.com/steve111MV
+ */
+
 package cg.stevendende.popularmovies.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.media.RatingCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,13 +26,13 @@ import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
-import java.text.ParseException;
-
 import cg.stevendende.popularmovies.R;
 import cg.stevendende.popularmovies.ServerAsyncTask;
-import cg.stevendende.popularmovies.Tools;
 import cg.stevendende.popularmovies.model.MdbMovie;
 
+/**
+ * Displays the details of a movie
+ */
 public class DetailsFragment extends Fragment {
 
     private static final float RATING_BAR_MAX_STAR = 5;

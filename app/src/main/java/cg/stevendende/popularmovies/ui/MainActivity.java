@@ -36,6 +36,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         }
     }
 
+    /**
+     * Loads a Details Fragment when the user clicks on a List Item
+     *
+     * @param movie
+     */
     @Override
     public void onMovieItemClieckListener(MdbMovie movie) {
 

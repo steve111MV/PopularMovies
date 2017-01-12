@@ -88,7 +88,7 @@ public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
         } catch (IOException e1) {
             e1.printStackTrace();
             Log.i("pm json ___ ", "IOException");
-
+            return null;
         } finally {
             if (sUrlCon != null) sUrlCon.disconnect();
 

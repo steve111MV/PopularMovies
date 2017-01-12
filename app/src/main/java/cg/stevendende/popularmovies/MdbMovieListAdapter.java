@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2017 Steve NDENDE, www.github.com/steve111MV
  */
+
 package cg.stevendende.popularmovies;
 
 import android.content.Context;
