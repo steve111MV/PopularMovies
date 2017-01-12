@@ -4,7 +4,13 @@
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="main_fragment_margin">1dp</dimen>
     <dimen name="fab_margin">14dp</dimen>
+
     <dimen name="movie_item_height">170dp</dimen>
-    <dimen name="movie_item_text_padding">5dp</dimen>
+    <dimen name="movie_item_text_padding">3dp</dimen>
     <dimen name="movie_item_title_text_size">14sp</dimen>
+
+
+    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="details_fragment_scrolview_margin">8dp</dimen>
+    <dimen name="gridview_vertical_horizontal_spacing">2px</dimen>
 </resources>
