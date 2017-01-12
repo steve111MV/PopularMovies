@@ -13,4 +13,10 @@
     <dimen name="app_bar_height">200dp</dimen>
     <dimen name="details_fragment_scrolview_margin">8dp</dimen>
     <dimen name="gridview_vertical_horizontal_spacing">2px</dimen>
+    <dimen name="details_fragment_cover_image_width">150dp</dimen>
+    <dimen name="details_fragment_cover_image_height">240dp</dimen>
+    <dimen name="details_fragment_date_container_top_margin">10dp</dimen>
+    <dimen name="details_fragment_header_textview_size">20sp</dimen>
+    <dimen name="details_fragment_rating_bar_top_margin">15dp</dimen>
+    <dimen name="details_fragment_ratingbar_star_size">14dp</dimen>
 </resources>

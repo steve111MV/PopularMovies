@@ -8,7 +8,6 @@
     <color name="colorTextSecondary">#b6bec1</color>
     <color name="colorDevider">#BDBDBD</color>
 
-
     <color name="colorFragmentBg">#192f39</color>
     <color name="movieCircleLine">@color/colorAccent</color>
     <color name="titleShadowedBg">#70000000</color>

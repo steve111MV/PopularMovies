@@ -78,6 +78,8 @@
     <string name="pref_sort">Order by</string>
     <string name="pref_sort_key">pref.order.by</string>
     <string name="pref_sort_popular">popular</string>
+    <string name="details_fragment_release_date">Release date :</string>
+    <string name="details_fragment_rating">Rating :</string>
 
     <array name="pref_sort_options">
         <item>Popular</item>
