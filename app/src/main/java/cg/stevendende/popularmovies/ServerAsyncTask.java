@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Steve NDENDE, www.github.com/steve111MV
+ */
+
 package cg.stevendende.popularmovies;
 
 import android.net.Uri;
@@ -17,6 +21,9 @@ import java.net.URL;
 
 import cg.stevendende.popularmovies.model.MdbMovieList;
 
+/**
+ * Requests the movies JSON list to themoviedb.ord API
+ */
 public class ServerAsyncTask extends AsyncTask<String, Void, MdbMovieList> {
 
     /**

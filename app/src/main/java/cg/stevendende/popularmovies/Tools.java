@@ -19,7 +19,11 @@ public class Tools {
     private static final int PHONE_NORMAL_SCREEN_DENSITY = 3;
 
     /**
-     * Retuns true if the device is online.
+     * Checks internet availability
+     *
+     * @param context The context of the Activity ( or attached Fragment) that requests
+     *                the online state verification
+     * @Retuns true if the device is online.
      */
     public static boolean isInternetAvailaible(Context context) throws IOException {
 
@@ -32,7 +36,12 @@ public class Tools {
     }
 
     /**
-     * Returns the sample size of a bitmap according to the provided MAX_SIZE.
+     * Calculates the sample size needed to create a manual bitmap thumb.
+     *
+     * @param maxSize the max wanted size fot the image
+     * @param options Image options
+     *
+     * @Returns the sample size of a bitmap according to the provided MAX_SIZE.
      */
     public static int calculateInSampleSize(BitmapFactory.Options options, int maxSize) {
         int height = options.outHeight;
@@ -44,12 +53,11 @@ public class Tools {
     }
 
     /**
-     * Returns true if the device is a tablet.
+     * @param context The context of the Activity ( or attached Fragment) wants to get the Screen difference
+     * @Returns true if the device is a tablet.
      */
-    public static boolean isTabletScreen(Context c) {
-        return PHONE_NORMAL_SCREEN_DENSITY <= (c.getResources().getConfiguration().screenLayout & 0xF);
-
-
+    public static boolean isTabletScreen(Context context) {
+        return PHONE_NORMAL_SCREEN_DENSITY <= (context.getResources().getConfiguration().screenLayout & 0xF);
     }
 
 }
