@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="cg.stevendende.popularmovies.ui.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryLight"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:title="@string/app_name"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </android.support.design.widget.AppBarLayout>
+
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/gridView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:layout_margin="@dimen/main_fragment_margin" />
+            android:layout_below="@+id/app_bar"
+            android:layout_margin="@dimen/main_fragment_margin"
+            android:horizontalSpacing="@dimen/gridview_vertical_horizontal_spacing"
+            android:verticalSpacing="@dimen/gridview_vertical_horizontal_spacing" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
