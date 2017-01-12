@@ -17,7 +17,6 @@ import java.io.IOException;
 public class Tools {
 
     private static final int PHONE_NORMAL_SCREEN_DENSITY = 3;
-    private static final int CONNECTION_TIMEOUT = 4000;
 
     /**
      * Retuns true if the device is online.

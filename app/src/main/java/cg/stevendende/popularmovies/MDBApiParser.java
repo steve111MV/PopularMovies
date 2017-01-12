@@ -30,6 +30,7 @@ public class MDBApiParser {
     public static final String TAG_RESULT_DESCRIPTION = "overview";
     public static final String TAG_RESULT_RELEASE = "release_date";
     public static final String TAG_RESULT_ADULT = "adult";
+    public static final String TAG_RESULT_RATING = "vote_average";
 
     public static final String TAG_RESULT_ID = "id";
     public static final String TAG_RESULT_ORIGINAL_LANG = "original_language";
@@ -69,6 +70,7 @@ public class MDBApiParser {
             mMovie.setVideoEnabled(object.getBoolean(TAG_RESULT_VIDEO_ENABLED));
             mMovie.setOriginalLanguage(object.getString(TAG_RESULT_ORIGINAL_LANG));
             mMovie.setReleaseDate(object.getString(TAG_RESULT_RELEASE));
+            mMovie.setRating((float) object.getDouble(TAG_RESULT_RATING));
 
             mMovieList.add(mMovie);
         }
