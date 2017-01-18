@@ -4,7 +4,7 @@
 
 package cg.stevendende.popularmovies.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,13 +23,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import java.io.IOException;
 
-import cg.stevendende.popularmovies.MdbMovieListAdapter;
+import cg.stevendende.popularmovies.MdbMovieRecyclerAdapter;
 import cg.stevendende.popularmovies.R;
 import cg.stevendende.popularmovies.ServerAsyncTask;
 import cg.stevendende.popularmovies.Tools;
@@ -36,13 +37,13 @@ import cg.stevendende.popularmovies.model.MdbMovieList;
 /**
  * Displays the list of popular Movies in the MainActivity
  */
-public class MainActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class MainActivityFragment extends Fragment implements MdbMovieRecyclerAdapter.MovieClickInterface {
 
-    private GridView mGridView;
+    public ActivityCallbackInterface mCallback;
+    private RecyclerView mRecyclerView;
     private Toolbar toolbar;
-    private MdbMovieListAdapter mListAdapter;
-
-    private CallbackInterface mCallback;
+    private MdbMovieRecyclerAdapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public MainActivityFragment() {
     }
@@ -65,36 +66,49 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        mGridView = (GridView) rootView.findViewById(R.id.gridView);
-
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        int mVerticalSpacing = 1;
+        int mHorinzontalSpacing = 1;
         int mNumberOfCols = 2;
 
-        //Dyna
         if (Tools.isTabletScreen(getActivity())) {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mNumberOfCols = 3;
             } else {
                 mNumberOfCols = 4;
             }
+            mVerticalSpacing = 2;
+            mHorinzontalSpacing = 2;
         } else {
+            /** */
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mNumberOfCols = 2;
             } else {
                 mNumberOfCols = 3;
             }
+            mVerticalSpacing = 2;
+            mHorinzontalSpacing = 2;
         }
 
-        mGridView.setNumColumns(mNumberOfCols);
-        if (mListAdapter == null) {
-            mListAdapter = new MdbMovieListAdapter(new MdbMovieList(), getActivity());
+        mLayoutManager = new GridLayoutManager(getActivity(), mNumberOfCols, LinearLayoutManager.VERTICAL, false);
+        mLayoutManager.offsetChildrenHorizontal(mHorinzontalSpacing);
+        mLayoutManager.offsetChildrenVertical(mVerticalSpacing);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        if (mRecyclerAdapter == null) {
+            mRecyclerAdapter = new MdbMovieRecyclerAdapter(new MdbMovieList(), getActivity());
+
+            //Pass the interface to the adapter
+            mRecyclerAdapter.setMovieClickInterface(this);
+
         } else {
             //Avoid Glide "java.lang.IllegalArgumentException: You cannot start a load for a destroyed activity"
-            mListAdapter.setContext(getActivity());
+            mRecyclerAdapter.mContext = getActivity();
         }
 
-        mGridView.setAdapter(mListAdapter);
+        mRecyclerView.setAdapter(mRecyclerAdapter);
 
-        mGridView.setOnItemClickListener(this);
         return rootView;
     }
 
@@ -121,8 +135,8 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
                     protected void onPostExecute(MdbMovieList mdbMoviesList) {
 
                         if (mdbMoviesList != null) {
-                            mListAdapter.setMoviesList(mdbMoviesList);
-                            mListAdapter.notifyDataSetChanged();
+                            mRecyclerAdapter.setMoviesList(mdbMoviesList);
+                            mRecyclerAdapter.notifyDataSetChanged();
 
                         } else {
                             Toast.makeText(getActivity(), "Connetion error, try again !", Toast.LENGTH_LONG).show();
@@ -157,33 +171,21 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         return true;
     }
 
-    /**
-     * Callback method to be invoked when an item in this AdapterView has
-     * been clicked.
-     * <p>
-     * Implementers can call getItemAtPosition(position) if they need
-     * to access the data associated with the selected item.
-     *
-     * @param parent   The AdapterView where the click happened.
-     * @param view     The view within the AdapterView that was clicked (this
-     *                 will be a view provided by the adapter)
-     * @param position The position of the view in the adapter.
-     * @param id       The row id of the item that was clicked.
-     */
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mCallback != null) {
-            mCallback.onMovieItemClieckListener((MdbMovie) mListAdapter.getItem(position));
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (mCallback == null) {
+            mCallback = (ActivityCallbackInterface) context;
         }
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mCallback = (CallbackInterface) activity;
+    public void onMovieClick(MdbMovie movie) {
+        mCallback.onItemClick(movie);
+        Log.i("Fragment Main ", "item clicked : Callback to Activity");
     }
 
-    public interface CallbackInterface {
-        void onMovieItemClieckListener(MdbMovie movie);
+    interface ActivityCallbackInterface {
+        void onItemClick(MdbMovie movie);
     }
 }

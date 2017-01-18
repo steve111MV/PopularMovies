@@ -7,7 +7,7 @@ package cg.stevendende.popularmovies.ui;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import cg.stevendende.popularmovies.R;
 import cg.stevendende.popularmovies.model.MdbMovie;
@@ -15,9 +15,10 @@ import cg.stevendende.popularmovies.model.MdbMovie;
 /**
  * This Activity is the main entrance of The Application.
  */
-public class MainActivity extends AppCompatActivity implements MainActivityFragment.CallbackInterface {
+public class MainActivity extends AppCompatActivity implements MainActivityFragment.ActivityCallbackInterface {
 
     public static final String EXTRA_MOVIE = "cg.stevendende.extra.movie";
+
     private static final String TAG_FRAGMENT_MAIN = "tag.main.fragment";
     private static final String TAG_FRAGMENT_DETAILS = "tag.details.fragment";
     private String mFragmentTag = TAG_FRAGMENT_MAIN;
@@ -36,14 +37,23 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     /**
      * Loads a Details Fragment when the user clicks on a List Item
      *
-     * @param movie
+     * @param movie The data belonging to the view that was clicked.
      */
     @Override
-    public void onMovieItemClieckListener(MdbMovie movie) {
-
+    public void onItemClick(MdbMovie movie) {
         Bundle data = new Bundle();
         data.putParcelable(EXTRA_MOVIE, movie);
 
@@ -57,16 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
                 .addToBackStack(null)
                 .commit();
 
+        Log.i("Activity ", "item clicked : Transition to details");
         mFragmentTag = TAG_FRAGMENT_DETAILS;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
     }
 }

@@ -28,13 +28,14 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </android.support.design.widget.AppBarLayout>
 
-        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gridView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/app_bar"
             android:layout_margin="@dimen/main_fragment_margin"
             android:horizontalSpacing="@dimen/gridview_vertical_horizontal_spacing"
-            android:verticalSpacing="@dimen/gridview_vertical_horizontal_spacing" />
+            android:verticalSpacing="@dimen/gridview_vertical_horizontal_spacing"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
